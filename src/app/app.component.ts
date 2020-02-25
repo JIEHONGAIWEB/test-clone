@@ -25,7 +25,35 @@ export class AppComponent {
    }
    constructor(){
      this.using();
+     this.loadParam();
    }
+
+   loadParam() {
+    let params = this.parseUrl(window.location.href)
+    console.log('888888',params)
+    // this.paramsService.setParams(params);
+
+    // if (params['lang']) {
+    //   this.i18nService.use(params['lang'])
+    // }
+  }
+
+  parseUrl(url) {
+    var params = {};
+    if (url) {
+      if (url.indexOf('?') == -1) {
+        return params;
+      };
+      var arrUrlParts = url.split('?');
+      var baseUrl = arrUrlParts[0];
+      var urlParameters = arrUrlParts[1].split('&');
+      for (var i = 0; i < urlParameters.length; i++) {
+        var nameValue = urlParameters[i].split('=');
+        params[nameValue[0]] = decodeURI(nameValue[1]).trim()//.push({ baseUrl: baseUrl, key: nameValue[0], value: nameValue[1] });
+      };
+      return params;
+    };
+  }
 
 
 }
